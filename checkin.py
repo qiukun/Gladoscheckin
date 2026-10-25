@@ -711,6 +711,8 @@ def main():
             logger.info(f"{LogEmoji.START} 步骤 2: 执行签到")
             checker = Checker(config)
             checker.checkin_all()
+            if all(v.code == CheckinStatus.FAILURE for v in checker.results):
+                exit_code = 1
 
             logger.info(f"{LogEmoji.START} 步骤 3: 格式化结果")
             payload = checker.format_results()
